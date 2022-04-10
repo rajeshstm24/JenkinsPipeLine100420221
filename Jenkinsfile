@@ -20,5 +20,38 @@ pipeline {
       }
     }
 
+    stage('QA UI Automation') {
+      parallel {
+        stage('QA UI Automation') {
+          steps {
+            ws(dir: 'workspace/WebAppUiAutomation') {
+              git(url: 'https://github.com/rajeshstm24/WebAppUiAutomation.git', branch: 'master')
+              sleep 5
+              bat 'mvn test'
+            }
+
+          }
+        }
+
+        stage('QA API Automation') {
+          steps {
+            ws(dir: 'workspace/WebAppApiAutomation') {
+              git(url: 'https://github.com/rajeshstm24/WebAppApiAutomation.git', branch: 'master')
+              sleep 5
+              bat 'mvn test'
+            }
+
+          }
+        }
+
+      }
+    }
+
+    stage('UAT') {
+      steps {
+        echo 'UAT Done'
+      }
+    }
+
   }
 }
