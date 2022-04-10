@@ -19,15 +19,19 @@ pipeline {
 
     stage('QA Test') {
       parallel {
-        stage('QA Test') {
+        stage('QA UI Automation') {
           steps {
-            echo 'QA UI Automation'
+            git(url: 'https://github.com/rajeshstm24/WebAppUiAutomation.git', branch: 'master', poll: true)
+            sleep 5
+            bat 'mvn test'
           }
         }
 
         stage('QA API Automation') {
           steps {
-            echo 'QA API Automation'
+            git(url: 'https://github.com/rajeshstm24/WebAppApiAutomation.git', branch: 'master', poll: true)
+            sleep 5
+            bat 'mvn test'
           }
         }
 
@@ -37,12 +41,6 @@ pipeline {
     stage('UAT') {
       steps {
         echo 'UAT Done'
-      }
-    }
-
-    stage('Prod') {
-      steps {
-        input 'Can I deploy to Prod'
       }
     }
 
