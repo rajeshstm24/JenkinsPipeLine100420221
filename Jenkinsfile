@@ -2,12 +2,6 @@ pipeline {
   agent any
   stages {
     stage('Dev-Build') {
-      agent {
-        label {
-          label ''
-          customWorkspace 'workspace/WebAppApp'
-        }
-      }
       steps {
         git(url: 'https://github.com/rajeshstm24/WebApp.git', branch: 'master')
         script {
@@ -26,12 +20,6 @@ pipeline {
     stage('QA UI Automation') {
       parallel {
         stage('QA UI Automation') {
-          agent {
-            label {
-              label ''
-              customWorkspace 'workspace/WebAppUiAutomation'
-            }
-          }
           steps {
             git(url: 'https://github.com/rajeshstm24/WebAppUiAutomation.git', branch: 'master')
             sleep 5
@@ -40,13 +28,7 @@ pipeline {
         }
 
         stage('QA API Automation') {
-          steps {
-            agent {
-              label {
-                label ''
-                customWorkspace 'workspace/WebAppApiAutomation'
-              }
-            }
+          steps {            
             git(url: 'https://github.com/rajeshstm24/WebAppApiAutomation.git', branch: 'master')
             sleep 5
             bat 'mvn test'
