@@ -13,7 +13,7 @@ pipeline {
             }
           }
 
-          bat 'mvn clean install'
+          bat 'mvn install'
           bat 'set JENKINS_NODE_COOKIE=dontKillMe && start /min startApp.bat'
         }
 
