@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Dev-Build') {
       steps {
-        ws(dir: 'WebApp') {
+        ws(dir: 'workspace/WebApp') {
           git(url: 'https://github.com/rajeshstm24/JenkinsPipeLine100420221.git', branch: 'master')
           script {
             try{
